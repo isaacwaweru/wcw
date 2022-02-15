@@ -43,9 +43,9 @@ const getUsers = (request, response) => {
   
     pool.query('INSERT INTO details (firstname, lastname, email, message) VALUES ($1, $2, $3, $4)', [firstname, lastname, email, message], (error, results) => {
       if (error) {
-        throw error
+        response.status(200).json("Details added!")
       }
-      response.status(201).send(`Details added with ID: ${result.insertId}`)
+      response.status(200).json("Details added!")
     })
   }
 
@@ -72,9 +72,9 @@ const getUsers = (request, response) => {
   
     pool.query('INSERT INTO userdetails (firstname, lastname, email, country, sector, phone) VALUES ($1, $2, $3, $4, $5, $6)', [firstname, lastname, email, country, sector, phone], (error, results) => {
       if (error) {
-        throw error
+        response.status(200).json("User details added!")
       }
-      response.status(201).send(`User details added with ID: ${result.insertId}`)
+      response.status(200).json("User details added!")
     })
   }
 
