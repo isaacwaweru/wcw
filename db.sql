@@ -1,0 +1,5 @@
+CREATE TABLE details (
+ID SERIAL PRIMARY KEY,
+commentId VARCHAR(30),
+comment VARCHAR(255),
+status VARCHAR(30));

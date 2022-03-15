@@ -3,7 +3,7 @@ const pool = new Pool({
   user: 'postgres',
   host: 'localhost',
   database: 'postgres',
-  password: 'mysecretpassword',
+  password: 'password',
   port: 5432,
 })
 
@@ -43,9 +43,9 @@ const getUsers = (request, response) => {
   
     pool.query('INSERT INTO details (firstname, lastname, email, message) VALUES ($1, $2, $3, $4)', [firstname, lastname, email, message], (error, results) => {
       if (error) {
-        response.status(200).json("Something went wrong!")
+        return response.status(400).json(error)
       }
-      response.status(200).json("Details added!")
+        return response.status(200).json("Details added!")
     })
   }
 
@@ -86,6 +86,30 @@ const getUsers = (request, response) => {
     })
   }
 
+  const storeComment = (request, response) => {
+    const { commentId, comment, status } = request.body
+  
+    pool.query('INSERT INTO comments (commentId, comment, status) VALUES ($1, $2, $3)', [commentId, comment, status], (error, results) => {
+      if (error) {
+        return response.status(400).json(error)
+      }
+        return response.status(200).json("Comment added!")
+    })
+  }
+
+  const fetchComment = (request, response) => {
+    pool.query('SELECT * FROM comments ORDER BY id ASC', (error, results) => {
+      if (error) {
+        return response
+        .status(201)
+        .json({ 
+          Res: "Something went wrong!"
+         });
+            }
+      response.status(200).json(results.rows)
+    })
+  }
+
   const updateUser = (request, response) => {
     const id = parseInt(request.params.id)
     const { name, email } = request.body
@@ -122,5 +146,7 @@ const getUsers = (request, response) => {
     sendDetails,
     getDetails,
     userDetails,
-    userDetail
+    userDetail,
+    storeComment,
+    fetchComment
   }

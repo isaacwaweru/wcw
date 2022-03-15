@@ -22,7 +22,10 @@ app.post('/details', db.sendDetails)
 app.get('/details', db.getDetails)
 app.post('/userdetails', db.userDetails)
 app.get('/userdetails', db.userDetail)
+app.post('/comment', db.storeComment)
+app.get('/comments', db.fetchComment)
 app.put('/users/:id', db.updateUser)
+
 app.delete('/users/:id', db.deleteUser)
 
   app.listen(port, () => {
